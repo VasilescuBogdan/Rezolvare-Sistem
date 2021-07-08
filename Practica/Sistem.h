@@ -24,7 +24,9 @@ public:
 template <class T>
 Sistem<T>::Sistem(unsigned int n) : m_n(n)
 {
-
+	for (int i = 1; i <= n; i++)
+		for (int j = 1; i <= n + 1; j++)
+			m_a[i][j] = 0;
 }
 
 template <class T>
@@ -55,12 +57,13 @@ void Sistem<T>::Gauss_Total()
 					col = j;
 				}
 
+		/*
 		if (piv == 0)
 		{
 			std::cout << "Sistemul nu are solutie unica";
 			return 0;
 		}
-
+		*/
 		if (lin != k)
 			for (int j = k; j <= m_n + 1; j++)
 			{
@@ -90,11 +93,11 @@ void Sistem<T>::Gauss_Total()
 		}
 	}
 
-	if (mod(m_a[m_n][m_n]) == 0)
+	/*if (mod(m_a[m_n][m_n]) == 0)
 	{
 		std::cout << "Sistemul nu are solutie unica";
 		return 0;
-	}
+	}*/
 
 	m_a[m_n][m_n + 1] = m_a[m_n][m_n + 1] / m_a[m_n][m_n];
 
@@ -138,11 +141,13 @@ void Sistem<T>::Gauss_Partial()
 		std::cout << "pivotul la pasul " << k << " este " << piv << std::endl;
 		std::cout << "acesta se afla pe pozitia " << lin << " cu " << k << std::endl;
 
+		/*
 		if (piv == 0)
 		{
 			std::cout << "Sistemul nu are solutie unica";
 			return;
 		}
+		*/
 
 		if (lin != k)
 		{
@@ -167,11 +172,11 @@ void Sistem<T>::Gauss_Partial()
 		}
 	}
 
-	if (m_a[m_n][m_n] == 0)
+	/*if (m_a[m_n][m_n] == 0)
 	{
 		std::cout << "Sistemul nu are solutie unica";
 		return;
-	}
+	}*/
 
 	m_a[m_n][m_n + 1] = m_a[m_n][m_n + 1] / m_a[m_n][m_n];
 
@@ -201,11 +206,11 @@ void Sistem<T>::Factorizare()
 			i = i + 1;
 		while (m_a[i][1] == 0 && i <= m_n);
 
-		if (i > m_n)
+		/*if (i > m_n)
 		{
 			std::cout << "Sistemul nu are solutie unica";
 			return 0;
-		}
+		}*/
 
 		for (int j = 1; j <= m_n + 1; j++)
 		{
@@ -232,11 +237,12 @@ void Sistem<T>::Factorizare()
 			i = i + 1;
 		} while (piv == 0 && i <= m_n);
 
+		/*
 		if (piv == 0)
 		{
 			std::cout << "Sistemul nu are solutie unica";
 			return 0;
-		}
+		}*/
 
 		if (i != k + 1)
 		{
@@ -301,6 +307,7 @@ void Sistem<T>::Factorizare()
 	}
 
 	m_a[m_n][m_n + 1] = m_a[m_n][m_n + 1] / m_a[m_n][m_n];
+
 	for (int i = m_n - 1; i >= 1; i--)
 	{
 		T S = 0;
@@ -345,11 +352,13 @@ void Sistem<T>::Jacobi(T x[10], T e, unsigned int itmax)
 		it++;
 	} while (max > e && it <= itmax);
 
+	/*
 	if (it > itmax)
 	{
 		std::cout << "nu se poate obtine solutia in " << itmax << " iteratii cu precizia " << e;
 		return 0;
 	}
+	*/
 
 	std::cout << "Solutia obtinuta in " << it << " iteratii cu precizia " << e << " este :";
 	for (int i = 1; i <= m_n; i++)
@@ -387,11 +396,12 @@ void Sistem<T>::Seidel_Gauss(T x[10], T e, unsigned int itmax)
 		it++;
 	} while (max > e && it <= itmax);
 
-	if (it > itmax)
+	/*if (it > itmax)
 	{
 		std::cout << "nu se poate obtine solutia in " << itmax << " iteratii cu precizia " << e;
 		return 0;
 	}
+	*/
 
 	std::cout << "Solutia obtinuta in " << it << " iteratii cu precizia " << e << " este :";
 	for (int i = 1; i <= m_n; i++)

@@ -21,9 +21,6 @@
     <ClCompile Include="NumarComplex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sistem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NumarComplex.h">
