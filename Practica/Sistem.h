@@ -108,7 +108,7 @@ void Sistem<T>::Gauss_Total()
 
 	for (int i = m_n - 1; i >= 1; i--)
 	{
-		T S = 0;
+		T S(0);
 		for (int j = i + 1; j <= m_n; j++)
 			S = S + m_a[i][j] * m_a[j][m_n + 1];
 		m_a[i][m_n + 1] = (m_a[i][m_n + 1] - S) / m_a[i][i];
@@ -181,7 +181,7 @@ void Sistem<T>::Gauss_Partial()
 
 	for (int i = m_n - 1; i >= 1; i--)
 	{
-		T S = 0;
+		T S(0);
 
 		for (int j = i + 1; j <= m_n; j++)
 			S = S + m_a[i][j] * m_a[j][m_n + 1];
@@ -224,10 +224,10 @@ void Sistem<T>::Factorizare()
 	for (int k = 2; k <= m_n; k++)
 	{
 		int i = k;
-		T piv = 0;
+		T piv(0);
 		do
 		{
-			T S = 0;
+			T S(0);
 			for (int h = 1; h <= k - 1; h++)
 				S = S + m_a[i][h] * m_a[h][k];
 			piv = m_a[i][k] - S;
@@ -255,7 +255,7 @@ void Sistem<T>::Factorizare()
 
 		for (int j = k; j <= m_n; j++)
 		{
-			T S = 0;
+			T S(0);
 			for (int h = 1; h <= k - 1; h++)
 				S = S + m_a[k][h] * m_a[h][j];
 			m_a[k][j] = m_a[k][j] - S;
@@ -282,7 +282,7 @@ void Sistem<T>::Factorizare()
 
 	for (int i = m_n - 1; i >= 1; i--)
 	{
-		T S = 0;
+		T S(0);
 		for (int j = i + 1; j <= m_n; j++)
 			S = S + m_a[i][j] * m_a[j][m_n + 1];
 		m_a[i][m_n + 1] = (m_a[i][m_n + 1] - S) / m_a[i][i];

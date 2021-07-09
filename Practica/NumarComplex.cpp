@@ -7,6 +7,10 @@ NumarComplex::NumarComplex(double parte_reala, double parte_imaginara): m_parte_
 
 }
 
+NumarComplex::NumarComplex(int integer): m_parte_reala(integer),m_parte_imaginara(0)
+{
+}
+
 NumarComplex::NumarComplex() : m_parte_reala(0), m_parte_imaginara(0)
 {
 
@@ -40,23 +44,17 @@ NumarComplex NumarComplex::operator/(const NumarComplex& z)
         / pow(mod(z), 2) );
 }
 
-
-NumarComplex& NumarComplex::operator=(const NumarComplex& z)
+void NumarComplex::operator=(const NumarComplex& z)
 {
     m_parte_reala = z.m_parte_reala;
     m_parte_imaginara = z.m_parte_imaginara;
-    return *this;
 }
 
 
-NumarComplex& NumarComplex::operator=(const int& n)
+void NumarComplex::operator=(const int& n)
 {
-    if (n == 0)
-    {
-        m_parte_reala = 0;
-        m_parte_imaginara = 0;
-    }
-    return *this;
+    this->m_parte_reala = n;
+    this->m_parte_imaginara = 0;
 }
 
 
