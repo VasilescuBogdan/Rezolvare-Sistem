@@ -11,19 +11,15 @@ double mod(double x)
 
 int main()
 {
+	
 	int n;
 	std::cin >> n;
 	
 	Sistem<NumarComplex> s(n);
 	s.Citire_Coeficienti();
-	
-	double e;
-	double x[10];
-	unsigned int itmax;
-	e = 0.01;
-	for (int i = 1; i <= n; i++)
-		x[i] = 0;
-	itmax = 100;
+	s.Factorizare();
+	s.Gauss_Partial();
+	s.Gauss_Total();
 
 
 	return 0;

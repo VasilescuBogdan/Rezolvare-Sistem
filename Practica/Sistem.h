@@ -24,9 +24,7 @@ public:
 template <class T>
 Sistem<T>::Sistem(int n) : m_n(n)
 {
-	for (int i = 1; i <= n; i++)
-		for (int j = 1; j <= n + 1; j++)
-			m_a[i][j] = 0;
+
 }
 
 template <class T>
@@ -45,7 +43,7 @@ void Sistem<T>::Gauss_Total()
 
 	for (int k = 1; k <= m_n - 1; k++)
 	{
-		T piv = mod(m_a[k][k]);
+		double piv = mod(m_a[k][k]);
 
 		int lin = k, col = k;
 		for (int i = k; i <= m_n; i++)
@@ -79,7 +77,7 @@ void Sistem<T>::Gauss_Total()
 			c[npc][2] = col;
 			for (int i = 1; i <= m_n; i++)
 			{
-				int aux = m_a[i][k];
+				T aux = m_a[i][k];
 				m_a[i][k] = m_a[i][col];
 				m_a[i][col] = aux;
 			}
@@ -191,12 +189,12 @@ void Sistem<T>::Gauss_Partial()
 template<class T>
 void Sistem<T>::Factorizare()
 {
-	if (m_a[1][1] == 0)
+	if (mod(m_a[1][1]) == 0)
 	{
 		int i = 1;
 		do
 			i = i + 1;
-		while (m_a[i][1] == 0 && i <= m_n);
+		while (mod(m_a[i][1]) == 0 && i <= m_n);
 
 		/*if (i > m_n)
 		{
@@ -227,7 +225,7 @@ void Sistem<T>::Factorizare()
 				S = S + m_a[i][h] * m_a[h][k];
 			piv = m_a[i][k] - S;
 			i = i + 1;
-		} while (piv == 0 && i <= m_n);
+		} while (mod(piv) == 0 && i <= m_n);
 
 		/*
 		if (piv == 0)

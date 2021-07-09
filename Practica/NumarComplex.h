@@ -13,6 +13,7 @@ public:
 	NumarComplex operator*(const NumarComplex& z);
 	NumarComplex operator/(const NumarComplex& z);
 	NumarComplex& operator=(const NumarComplex& z);
+	NumarComplex& operator=(const int& n);
 	friend std::ostream& operator<< (std::ostream& out, const NumarComplex& z);
 	friend std::istream& operator>> (std::istream& in, NumarComplex& z);
 	friend double mod(NumarComplex z);

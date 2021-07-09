@@ -48,6 +48,19 @@ NumarComplex& NumarComplex::operator=(const NumarComplex& z)
     return *this;
 }
 
+
+NumarComplex& NumarComplex::operator=(const int& n)
+{
+    if (n == 0)
+    {
+        m_parte_reala = 0;
+        m_parte_imaginara = 0;
+    }
+    return *this;
+}
+
+
+
 std::ostream& operator<<(std::ostream& out, const NumarComplex& z)
 {
     if (z.m_parte_imaginara > 0)
