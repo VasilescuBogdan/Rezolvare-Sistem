@@ -22,8 +22,8 @@ public:
 	void Gauss_Total();
 	void Gauss_Partial();
 	void Factorizare();
-	void Jacobi(T x[10], T e, int itmaxT);
-	void Seidel_Gauss(T x[10], T e, int itmax);
+	void Jacobi(T x[10], double e, int itmaxT);
+	void Seidel_Gauss(T x[10], double e, int itmax);
 
 };
 
@@ -293,10 +293,11 @@ void Sistem<T>::Factorizare()
 }
 
 template<class T>
-void Sistem<T>::Jacobi(T x[10], T e, int itmax)
+void Sistem<T>::Jacobi(T x[10], double e, int itmax)
 {
 	int it;
-	T y[10], max;
+	T y[10];
+	double max;
 
 	it = 0;
 
@@ -310,7 +311,7 @@ void Sistem<T>::Jacobi(T x[10], T e, int itmax)
 
 			for (int j = 1; j <= m_n; j++)
 				if (j != i)
-					S += m_a[i][j] * x[j];
+					S = S + m_a[i][j] * x[j];
 
 			y[i] = (m_a[i][m_n + 1] - S) / m_a[i][i];
 
@@ -339,9 +340,10 @@ void Sistem<T>::Jacobi(T x[10], T e, int itmax)
 }
 
 template<class T>
-void Sistem<T>::Seidel_Gauss(T x[10], T e, int itmax)
+void Sistem<T>::Seidel_Gauss(T x[10], double e, int itmax)
 {
-	T y[10], max;
+	T y[10];
+	double max;
 
 	int it = 0;
 
@@ -355,7 +357,7 @@ void Sistem<T>::Seidel_Gauss(T x[10], T e, int itmax)
 
 			for (int j = 1; j <= m_n; j++)
 				if (j != i)
-					S += m_a[i][j] * x[j];
+					S = S + m_a[i][j] * x[j];
 
 			y[i] = (m_a[i][m_n + 1] - S) / m_a[i][i];
 

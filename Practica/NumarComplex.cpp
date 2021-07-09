@@ -7,7 +7,7 @@ NumarComplex::NumarComplex(double parte_reala, double parte_imaginara): m_parte_
 
 }
 
-NumarComplex::NumarComplex(int integer): m_parte_reala(integer),m_parte_imaginara(0)
+NumarComplex::NumarComplex(double n): m_parte_reala(n),m_parte_imaginara(0)
 {
 }
 
@@ -51,7 +51,7 @@ void NumarComplex::operator=(const NumarComplex& z)
 }
 
 
-void NumarComplex::operator=(const int& n)
+void NumarComplex::operator=(const double& n)
 {
     this->m_parte_reala = n;
     this->m_parte_imaginara = 0;

@@ -7,14 +7,14 @@ class NumarComplex
 
 public:
 	NumarComplex(double parte_reala, double parte_imaginara);
-	NumarComplex(int integer);
+	NumarComplex(double n);
 	NumarComplex();
 	NumarComplex operator+(const NumarComplex& z);
 	NumarComplex operator-(const NumarComplex& z);
 	NumarComplex operator*(const NumarComplex& z);
 	NumarComplex operator/(const NumarComplex& z);
 	void operator=(const NumarComplex& z);
-	void operator=(const int& n);
+	void operator=(const double& n);
 	friend std::ostream& operator<< (std::ostream& out, const NumarComplex& z);
 	friend std::istream& operator>> (std::istream& in, NumarComplex& z);
 	friend double mod(NumarComplex z);
