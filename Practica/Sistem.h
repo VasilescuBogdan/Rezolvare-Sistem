@@ -5,27 +5,27 @@ double mod(double x);
 template <class T>
 class Sistem
 {
-	unsigned int m_n;
+	int m_n;
 	T m_a[10][11];
 
 public:
 	
-	Sistem(unsigned int n);
+	Sistem(int n);
 	void Citire_Coeficienti();
 	void Gauss_Total();
 	void Gauss_Partial();
 	void Factorizare();
-	void Jacobi(T x[10], T e, unsigned int itmaxT);
-	void Seidel_Gauss(T x[10], T e, unsigned int itmax);
+	void Jacobi(T x[10], T e, int itmaxT);
+	void Seidel_Gauss(T x[10], T e, int itmax);
 
 };
 
 
 template <class T>
-Sistem<T>::Sistem(unsigned int n) : m_n(n)
+Sistem<T>::Sistem(int n) : m_n(n)
 {
 	for (int i = 1; i <= n; i++)
-		for (int j = 1; i <= n + 1; j++)
+		for (int j = 1; j <= n + 1; j++)
 			m_a[i][j] = 0;
 }
 
@@ -33,21 +33,21 @@ template <class T>
 void Sistem<T>::Citire_Coeficienti()
 {
 	for (int i = 1; i <= m_n; i++)
-		for (int j = 1; i <= m_n + 1; j++)
+		for (int j = 1; j <= m_n + 1; j++)
 			std::cin >> m_a[i][j];
 }
 
 template<class T>
 void Sistem<T>::Gauss_Total()
 {
-	T c[10, 3];
-	unsigned int npc = 0;
+	T c[10][3];
+	int npc = 0;
 
 	for (int k = 1; k <= m_n - 1; k++)
 	{
 		T piv = mod(m_a[k][k]);
 
-		unsigned int lin = k, col = k;
+		int lin = k, col = k;
 		for (int i = k; i <= m_n; i++)
 			for (int j = k; j <= m_n; j++)
 				if (piv < mod(m_a[i][j]))
@@ -218,7 +218,7 @@ void Sistem<T>::Factorizare()
 			m_a[1][j] = m_a[i][j];
 			m_a[i][j] = aux;
 		}
-		std::cout << "Se permuta linia 1 cu linia" << i << std::endl;
+
 	}
 
 	for (int i = 2; i <= m_n; i++)
@@ -246,7 +246,6 @@ void Sistem<T>::Factorizare()
 
 		if (i != k + 1)
 		{
-			std::cout << "Se permuta linia " << i - 1 << " cu linia " << k << std::endl;
 			for (int j = 1; j <= m_n + 1; j++)
 			{
 				T aux = m_a[k][j];
@@ -274,30 +273,6 @@ void Sistem<T>::Factorizare()
 		}
 	}
 
-	std::cout << "L = " << std::endl;
-	for (int i = 1; i <= m_n; i++)
-	{
-		for (int j = 1; j <= m_n; j++)
-			if (i == j)
-				std::cout << "1 ";
-			else if (i < j)
-				std::cout << "0 ";
-			else
-				std::cout << m_a[i][j] << " ";
-		std::cout << std::endl;
-	}
-
-	std::cout << "R = " << std::endl;
-	for (int i = 1; i <= m_n; i++)
-	{
-		for (int j = 1; j <= m_n; j++)
-			if (i > j)
-				std::cout << "0 ";
-			else
-				std::cout << m_a[i][j] << " ";
-		std::cout << std::endl;
-	}
-
 	for (int i = 2; i <= m_n; i++)
 	{
 		T S = 0;
@@ -321,9 +296,9 @@ void Sistem<T>::Factorizare()
 }
 
 template<class T>
-void Sistem<T>::Jacobi(T x[10], T e, unsigned int itmax)
+void Sistem<T>::Jacobi(T x[10], T e, int itmax)
 {
-	unsigned int it;
+	int it;
 	T y[10], max;
 
 	it = 0;
@@ -367,11 +342,11 @@ void Sistem<T>::Jacobi(T x[10], T e, unsigned int itmax)
 }
 
 template<class T>
-void Sistem<T>::Seidel_Gauss(T x[10], T e, unsigned int itmax)
+void Sistem<T>::Seidel_Gauss(T x[10], T e, int itmax)
 {
 	T y[10], max;
 
-	unsigned int it = 0;
+	int it = 0;
 
 	do
 	{
