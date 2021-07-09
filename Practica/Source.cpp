@@ -14,20 +14,17 @@ int main()
 	int n;
 	std::cin >> n;
 	
-	Sistem<double> s(n);
+	Sistem<NumarComplex> s(n);
 	s.Citire_Coeficienti();
-	s.Gauss_Total();
 	
 	double e;
 	double x[10];
 	unsigned int itmax;
-	e = 0.00001;
+	e = 0.01;
 	for (int i = 1; i <= n; i++)
 		x[i] = 0;
-	itmax = 10;
+	itmax = 100;
 
-	//s.Jacobi(x, e, itmax);
-	//s.Seidel_Gauss(x, e, itmax);
 
 	return 0;
 }

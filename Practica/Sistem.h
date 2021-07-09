@@ -40,7 +40,7 @@ void Sistem<T>::Citire_Coeficienti()
 template<class T>
 void Sistem<T>::Gauss_Total()
 {
-	T c[10][3];
+	int c[10][3];
 	int npc = 0;
 
 	for (int k = 1; k <= m_n - 1; k++)
@@ -124,8 +124,6 @@ void Sistem<T>::Gauss_Total()
 template<class T>
 void Sistem<T>::Gauss_Partial()
 {
-	unsigned int nrp = 0;
-
 	for (int k = 1; k < m_n; k++)
 	{
 		T piv = m_a[k][k];
@@ -138,8 +136,6 @@ void Sistem<T>::Gauss_Partial()
 				lin = i;
 			}
 
-		std::cout << "pivotul la pasul " << k << " este " << piv << std::endl;
-		std::cout << "acesta se afla pe pozitia " << lin << " cu " << k << std::endl;
 
 		/*
 		if (piv == 0)
@@ -151,8 +147,6 @@ void Sistem<T>::Gauss_Partial()
 
 		if (lin != k)
 		{
-			std::cout << "au fost permutate liniile " << k << " si " << lin << std::endl;
-			nrp++;
 			for (int j = k; j <= m_n + 1; j++)
 			{
 
@@ -192,8 +186,6 @@ void Sistem<T>::Gauss_Partial()
 
 	for (int i = 1; i <= m_n; i++)
 		std::cout << "x[" << i << "] = " << m_a[i][m_n + 1] << std::endl;
-
-	std::cout << "au fost facute " << nrp << " permutari";
 }
 
 template<class T>
