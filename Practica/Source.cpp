@@ -5,7 +5,7 @@ int main()
 {
 	int n;
 	std::string s;
-	std::cout << "Da numarul de ecuatii si necunoscute : ";
+	std::cout << "Da numarul de ecuatii si necunoscute (n < 100) : ";
 	std::cin >> n;
 	std::cout << "Tipul de sistem (Real sau Complex) : ";
 	std::cin >> s;
@@ -54,7 +54,7 @@ int main()
 		if (s == "COMPLEX" || s == "complex" || s == "Complex")
 		{
 			Sistem<NumarComplex> S(n);
-			std::cout << "Dati coeficientii : " << std::endl;
+			std::cout << "Dati coeficientii (partea reala urmata de partea imaginara) : " << std::endl;
 			S.Citire_Coeficienti();
 			std::cout << "Metoda de rezolvare a sistemului (scrie GaussPartial, GaussTotal, Factorizare, Jacobi sau SeidelGauss) : ";
 			std::cin >> s;

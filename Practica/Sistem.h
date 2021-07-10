@@ -13,7 +13,7 @@ template <class T>
 class Sistem
 {
 	int m_n;
-	T m_a[10][11];
+	T m_a[100][101];
 
 public:
 	
@@ -22,8 +22,8 @@ public:
 	void Gauss_Total();
 	void Gauss_Partial();
 	void Factorizare();
-	void Jacobi(T x[10], double e, int itmaxT);
-	void Seidel_Gauss(T x[10], double e, int itmax);
+	void Jacobi(T x[100], double e, int itmaxT);
+	void Seidel_Gauss(T x[100], double e, int itmax);
 
 };
 
@@ -47,28 +47,36 @@ void Sistem<T>::Gauss_Total()
 {
 	int c[10][3];
 	int npc = 0;
+	int lin, col;
 
 	for (int k = 1; k <= m_n - 1; k++)
 	{
-		double piv = mod(m_a[k][k]);
+		try {
+			double piv = mod(m_a[k][k]);
 
-		int lin = k, col = k;
-		for (int i = k; i <= m_n; i++)
-			for (int j = k; j <= m_n; j++)
-				if (piv < mod(m_a[i][j]))
-				{
-					piv = mod(m_a[i][j]);
-					lin = i;
-					col = j;
-				}
+			 lin = k, col = k;
+			for (int i = k; i <= m_n; i++)
+				for (int j = k; j <= m_n; j++)
+					if (piv < mod(m_a[i][j]))
+					{
+						piv = mod(m_a[i][j]);
 
-		/*
-		if (piv == 0)
+						
+
+						lin = i;
+						col = j;
+					}
+			
+			if (piv == 0)
+				throw 0;
+			
+		}
+		catch (int err)
 		{
 			std::cout << "Sistemul nu are solutie unica";
-			return 0;
+			return ;
 		}
-		*/
+
 		if (lin != k)
 			for (int j = k; j <= m_n + 1; j++)
 			{
@@ -90,28 +98,61 @@ void Sistem<T>::Gauss_Total()
 			}
 		}
 
-		for (int i = k + 1; i <= m_n; i++)
-		{
-			m_a[i][k] = m_a[i][k] / m_a[k][k];
-			for (int j = k + 1; j <= m_n + 1; j++)
-				m_a[i][j] = m_a[i][j] - m_a[i][k] * m_a[k][j];
+		try {
+			
+			if (mod(m_a[k][k]) == 0)
+				throw 0;
+
+			for (int i = k + 1; i <= m_n; i++)
+			{
+				m_a[i][k] = m_a[i][k] / m_a[k][k];
+				for (int j = k + 1; j <= m_n + 1; j++)
+					m_a[i][j] = m_a[i][j] - m_a[i][k] * m_a[k][j];
+			}
 		}
+		catch (int err)
+		{
+			std::cout << "Sistemul nu are solutie unica";
+			return;
+		}
+
+		
 	}
 
-	/*if (mod(m_a[m_n][m_n]) == 0)
+
+	try 
+	{
+		if (mod(m_a[m_n][m_n]) == 0)
+			throw 0;
+
+			m_a[m_n][m_n + 1] = m_a[m_n][m_n + 1] / m_a[m_n][m_n];
+	}
+	catch (int err)
 	{
 		std::cout << "Sistemul nu are solutie unica";
-		return 0;
-	}*/
-
-	m_a[m_n][m_n + 1] = m_a[m_n][m_n + 1] / m_a[m_n][m_n];
+		return;
+	}
 
 	for (int i = m_n - 1; i >= 1; i--)
 	{
-		T S(0);
+		T S = 0;
+
 		for (int j = i + 1; j <= m_n; j++)
 			S = S + m_a[i][j] * m_a[j][m_n + 1];
-		m_a[i][m_n + 1] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+		
+		try 
+		{
+			if (mod(m_a[i][i]) == 0)
+				throw 0;
+
+			m_a[i][m_n + 1] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+		}
+		catch (int err)
+		{
+			std::cout << "Sistemul nu are solutie unica";
+			return;
+		}
+		
 	}
 
 	if (npc != 0)
@@ -133,22 +174,24 @@ void Sistem<T>::Gauss_Partial()
 	{
 		T piv = m_a[k][k];
 		int lin = k;
-
-		for (int i = k + 1; i <= m_n; i++)
-			if (mod(piv) < mod(m_a[i][k]))
-			{
-				piv = m_a[i][k];
-				lin = i;
-			}
-
-
-		/*
-		if (piv == 0)
+		
+		try {
+			for (int i = k + 1; i <= m_n; i++)
+				if (mod(piv) < mod(m_a[i][k]))
+				{
+					piv = m_a[i][k];
+					lin = i;
+				}
+			
+			if (mod(piv) == 0)
+				throw 0;
+		}
+		catch (int err)
 		{
 			std::cout << "Sistemul nu are solutie unica";
 			return;
 		}
-		*/
+
 
 		if (lin != k)
 		{
@@ -162,31 +205,58 @@ void Sistem<T>::Gauss_Partial()
 			}
 		}
 
-		for (int i = k + 1; i <= m_n + 1; i++)
-		{
-			m_a[i][k] = m_a[i][k] / m_a[k][k];
+		try {
+			
+			if (mod(m_a[k][k]) == 0)
+				throw 0;
 
-			for (int j = k + 1; j <= m_n + 1; j++)
-				m_a[i][j] = m_a[i][j] - m_a[i][k] * m_a[k][j];
+			for (int i = k + 1; i <= m_n + 1; i++)
+			{
+				m_a[i][k] = m_a[i][k] / m_a[k][k];
+
+				for (int j = k + 1; j <= m_n + 1; j++)
+					m_a[i][j] = m_a[i][j] - m_a[i][k] * m_a[k][j];
+			}
 		}
+		catch (int err)
+		{
+			std::cout << "Sistemul nu are solutie unica";
+			return;
+		}
+		
 	}
 
-	/*if (m_a[m_n][m_n] == 0)
+	
+	try {
+		if (mod(m_a[m_n][m_n]) == 0)
+			throw 0;
+
+		m_a[m_n][m_n + 1] = m_a[m_n][m_n + 1] / m_a[m_n][m_n];
+	}
+	catch (int err)
 	{
 		std::cout << "Sistemul nu are solutie unica";
 		return;
-	}*/
-
-	m_a[m_n][m_n + 1] = m_a[m_n][m_n + 1] / m_a[m_n][m_n];
+	}
 
 	for (int i = m_n - 1; i >= 1; i--)
 	{
-		T S(0);
+		T S = 0;
 
 		for (int j = i + 1; j <= m_n; j++)
 			S = S + m_a[i][j] * m_a[j][m_n + 1];
-
-		m_a[i][m_n + 1] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+		try 
+		{
+			if (mod(m_a[i][i]) == 0)
+				throw 0;
+			m_a[i][m_n + 1] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+		}
+		catch (int err)
+		{
+			std::cout << "Sistemul nu are solutie unica";
+			return;
+		}
+		
 	}
 
 	for (int i = 1; i <= m_n; i++)
@@ -293,7 +363,7 @@ void Sistem<T>::Factorizare()
 }
 
 template<class T>
-void Sistem<T>::Jacobi(T x[10], double e, int itmax)
+void Sistem<T>::Jacobi(T x[100], double e, int itmax)
 {
 	int it;
 	T y[10];
@@ -340,7 +410,7 @@ void Sistem<T>::Jacobi(T x[10], double e, int itmax)
 }
 
 template<class T>
-void Sistem<T>::Seidel_Gauss(T x[10], double e, int itmax)
+void Sistem<T>::Seidel_Gauss(T x[100], double e, int itmax)
 {
 	T y[10];
 	double max;
