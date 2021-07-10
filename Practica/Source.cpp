@@ -10,11 +10,12 @@ int main()
 	std::cout << "Tipul de sistem (Real sau Complex) : ";
 	std::cin >> s;
 	
-	if (s == "real" || s == "REAL")
+	if (s == "real" || s == "REAL" || s == "Real")
 	{
 		Sistem<double> S(n);
+		std::cout << "Dati coeficientii : " << std::endl;
 		S.Citire_Coeficienti();
-		std::cout << "Metoda de rezolvare a sistemului (scrie GaussPartial, GaussTotal, Factorizare, Jacobi sau Seidel-Gauss) : ";
+		std::cout << "Metoda de rezolvare a sistemului (scrie GaussPartial, GaussTotal, Factorizare, Jacobi sau SeidelGauss) : ";
 		std::cin >> s;
 		if (s == "GaussPartial")
 			S.Gauss_Partial();
@@ -29,20 +30,20 @@ int main()
 			std::cout << "Presupuneti aproximatia initiala a solutiei : ";
 			for (int i = 1; i <= n; i++)
 				std::cin >> x[i];
-			std::cout << "Alegeti eroarea minima admisa : ";
+			std::cout << "Alegeti eroarea maxima admisa : ";
 			std::cin >> e;
 			std::cout << "Alegeti numarul maxim de iteratii : ";
 			std::cin >> itmax;
 			S.Jacobi(x, e, itmax);
 		}
-		if (s == "Seidel-Gauss")
+		if (s == "SeidelGauss")
 		{
 			double x[10], e;
 			int itmax;
 			std::cout << "Presupuneti aproximatia initiala a solutiei : ";
 			for (int i = 1; i <= n; i++)
 				std::cin >> x[i];
-			std::cout << "Alegeti eroarea minima admisa : ";
+			std::cout << "Alegeti eroarea maxima admisa : ";
 			std::cin >> e;
 			std::cout << "Alegeti numarul maxim de iteratii : ";
 			std::cin >> itmax;
@@ -50,11 +51,12 @@ int main()
 		}
 	}
 	else
-		if (s == "COMPLEX" || s == "complex")
+		if (s == "COMPLEX" || s == "complex" || s == "Complex")
 		{
 			Sistem<NumarComplex> S(n);
+			std::cout << "Dati coeficientii : " << std::endl;
 			S.Citire_Coeficienti();
-			std::cout << "Metoda de rezolvare a sistemului (scrie GaussPartial, GaussTotal, Factorizare, Jacobi sau Seidel-Gauss) : ";
+			std::cout << "Metoda de rezolvare a sistemului (scrie GaussPartial, GaussTotal, Factorizare, Jacobi sau SeidelGauss) : ";
 			std::cin >> s;
 			if (s == "GaussPartial")
 				S.Gauss_Partial();
@@ -70,25 +72,27 @@ int main()
 				std::cout << "Presupuneti aproximatia initiala a solutiei : ";
 				for (int i = 1; i <= n; i++)
 					std::cin >> x[i];
-				std::cout << "Alegeti eroarea minima admisa : ";
+				std::cout << "Alegeti eroarea maxima admisa : ";
 				std::cin >> e;
 				std::cout << "Alegeti numarul maxim de iteratii : ";
 				std::cin >> itmax;
 				S.Jacobi(x, e, itmax);
-				if (s == "Seidel-Gauss")
-				{
-					NumarComplex x[10];
-					double e;
-					int itmax;
-					std::cout << "Presupuneti aproximatia initiala a solutiei : ";
-					for (int i = 1; i <= n; i++)
-						std::cin >> x[i];
-					std::cout << "Alegeti eroarea minima admisa : ";
-					std::cin >> e;
-					std::cout << "Alegeti numarul maxim de iteratii : ";
-					std::cin >> itmax;
-					S.Seidel_Gauss(x, e, itmax);
-				}
+				
+			}
+			
+			if (s == "SeidelGauss")
+			{
+				NumarComplex x[10];
+				double e;
+				int itmax;
+				std::cout << "Presupuneti aproximatia initiala a solutiei : ";
+				for (int i = 1; i <= n; i++)
+					std::cin >> x[i];
+				std::cout << "Alegeti eroarea maxima admisa : ";
+				std::cin >> e;
+				std::cout << "Alegeti numarul maxim de iteratii : ";
+				std::cin >> itmax;
+				S.Seidel_Gauss(x, e, itmax);
 			}
 		}
 	

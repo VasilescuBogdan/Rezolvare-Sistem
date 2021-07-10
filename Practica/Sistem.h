@@ -333,7 +333,7 @@ void Sistem<T>::Jacobi(T x[10], double e, int itmax)
 	}
 	*/
 
-	std::cout << "Solutia obtinuta in " << it << " iteratii cu precizia " << e << " este :";
+	std::cout << "Solutia obtinuta in " << it << " iteratii cu precizia " << e << " este : ";
 	for (int i = 1; i <= m_n; i++)
 		std::cout << x[i] << " ";
 
@@ -377,7 +377,7 @@ void Sistem<T>::Seidel_Gauss(T x[10], double e, int itmax)
 	}
 	*/
 
-	std::cout << "Solutia obtinuta in " << it << " iteratii cu precizia " << e << " este :";
+	std::cout << "Solutia obtinuta in " << it << " iteratii cu precizia " << e << " este : ";
 	for (int i = 1; i <= m_n; i++)
 		std::cout << x[i] << " ";
 }
