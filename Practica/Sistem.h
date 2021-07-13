@@ -51,7 +51,7 @@ void Sistem<T>::Gauss_Total()
 
 	for (int k = 1; k <= m_n - 1; k++)
 	{
-		try {
+		
 			double piv = mod(m_a[k][k]);
 
 			 lin = k, col = k;
@@ -66,7 +66,7 @@ void Sistem<T>::Gauss_Total()
 						lin = i;
 						col = j;
 					}
-			
+		try {
 			if (piv == 0)
 				throw 0;
 			
@@ -175,14 +175,15 @@ void Sistem<T>::Gauss_Partial()
 		T piv = m_a[k][k];
 		int lin = k;
 		
-		try {
+		
 			for (int i = k + 1; i <= m_n; i++)
 				if (mod(piv) < mod(m_a[i][k]))
 				{
 					piv = m_a[i][k];
 					lin = i;
 				}
-			
+
+		try {	
 			if (mod(piv) == 0)
 				throw 0;
 		}
@@ -273,11 +274,11 @@ void Sistem<T>::Factorizare()
 			i = i + 1;
 		while (mod(m_a[i][1]) == 0 && i <= m_n);
 
-		/*if (i > m_n)
+		if (i > m_n)
 		{
 			std::cout << "Sistemul nu are solutie unica";
-			return 0;
-		}*/
+			return ;
+		}
 
 		for (int j = 1; j <= m_n + 1; j++)
 		{
@@ -288,28 +289,43 @@ void Sistem<T>::Factorizare()
 
 	}
 
-	for (int i = 2; i <= m_n; i++)
-		m_a[i][1] = m_a[i][1] / m_a[1][1];
+	try {
+		
+		if (mod(m_a[1][1]) == 0)
+			throw 0;
+		for (int i = 2; i <= m_n; i++)
+			m_a[i][1] = m_a[i][1] / m_a[1][1];
+	}
+	catch (int err) {
+		std::cout << "Sistemul nu are solutie unica!";
+		return;
+	}
 
 	for (int k = 2; k <= m_n; k++)
 	{
 		int i = k;
-		T piv(0);
+		T piv = 0;
 		do
 		{
-			T S(0);
+			T S = 0;
 			for (int h = 1; h <= k - 1; h++)
 				S = S + m_a[i][h] * m_a[h][k];
 			piv = m_a[i][k] - S;
 			i = i + 1;
 		} while (mod(piv) == 0 && i <= m_n);
 
-		/*
-		if (piv == 0)
+		try {
+			if (mod(piv) == 0)
+			{
+				throw 0;
+			}
+			
+		}
+		catch (int err)
 		{
-			std::cout << "Sistemul nu are solutie unica";
-			return 0;
-		}*/
+			std::cout << "Sistemul nu are solutie unica!";
+			return ;
+		}
 
 		if (i != k + 1)
 		{
@@ -325,18 +341,28 @@ void Sistem<T>::Factorizare()
 
 		for (int j = k; j <= m_n; j++)
 		{
-			T S(0);
+			T S = 0;
 			for (int h = 1; h <= k - 1; h++)
 				S = S + m_a[k][h] * m_a[h][j];
 			m_a[k][j] = m_a[k][j] - S;
 		}
 
-		for (int i = k + 1; i <= m_n; i++)
+		try {
+			if (mod(m_a[k][k]) == 0)
+			{
+				throw 0;
+			}
+			for (int i = k + 1; i <= m_n; i++)
+			{
+				T S = 0;
+				for (int h = 1; h <= k - 1; h++)
+					S = S + m_a[i][h] * m_a[h][k];
+				m_a[i][k] = (m_a[i][k] - S) / m_a[k][k];
+			}
+		}
+		catch (int err)
 		{
-			T S = 0;
-			for (int h = 1; h <= k - 1; h++)
-				S = S + m_a[i][h] * m_a[h][k];
-			m_a[i][k] = (m_a[i][k] - S) / m_a[k][k];
+			std::cout << "Sistemul nu are solutie unica!";
 		}
 	}
 
@@ -348,14 +374,34 @@ void Sistem<T>::Factorizare()
 		m_a[i][m_n + 1] = m_a[i][m_n + 1] - S;
 	}
 
-	m_a[m_n][m_n + 1] = m_a[m_n][m_n + 1] / m_a[m_n][m_n];
+	try {
+		if (mod(m_a[m_n][m_n]) == 0)
+			throw 0;
+
+		m_a[m_n][m_n + 1] = m_a[m_n][m_n + 1] / m_a[m_n][m_n];
+	}
+	catch (int err)
+	{
+		std::cout << "Sistemul nu are solutie unica!";
+		return ;
+	}
+
+	
 
 	for (int i = m_n - 1; i >= 1; i--)
 	{
-		T S(0);
-		for (int j = i + 1; j <= m_n; j++)
-			S = S + m_a[i][j] * m_a[j][m_n + 1];
-		m_a[i][m_n + 1] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+		try {
+			if (mod(m_a[i][i]) == 0)
+				throw 0;
+			T S = 0;
+			for (int j = i + 1; j <= m_n; j++)
+				S = S + m_a[i][j] * m_a[j][m_n + 1];
+			m_a[i][m_n + 1] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+		}
+		catch (int err)
+		{
+			std::cout << "Sistemul nu are solutie unica!";
+		}
 	}
 
 	for (int i = 1; i <= m_n; i++)
@@ -382,8 +428,16 @@ void Sistem<T>::Jacobi(T x[100], double e, int itmax)
 			for (int j = 1; j <= m_n; j++)
 				if (j != i)
 					S = S + m_a[i][j] * x[j];
-
-			y[i] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+			try
+			{
+				if (mod(m_a[i][i]) == 0)
+					throw 0;
+				y[i] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+			}
+			catch (int err)
+			{
+				std::cout << "Sistemul nu are solutie unica! ";
+			}
 
 			if (max < mod(y[i] - x[i]))
 				max = mod(y[i] - x[i]);
@@ -391,17 +445,19 @@ void Sistem<T>::Jacobi(T x[100], double e, int itmax)
 
 		for (int i = 1; i <= m_n; i++)
 			x[i] = y[i];
+		
+		try {
+			it++;
+			if (it > itmax)
+				throw 1;
+		}
+		catch (int err)
+		{
+			std::cout << "Nu se poate aproxima o solutie cu " << itmax << " iteratii! ";
+			return ;
+		}
 
-		it++;
-	} while (max > e && it <= itmax);
-
-	/*
-	if (it > itmax)
-	{
-		std::cout << "nu se poate obtine solutia in " << itmax << " iteratii cu precizia " << e;
-		return 0;
-	}
-	*/
+	} while (max > e);
 
 	std::cout << "Solutia obtinuta in " << it << " iteratii cu precizia " << e << " este : ";
 	for (int i = 1; i <= m_n; i++)
@@ -428,8 +484,17 @@ void Sistem<T>::Seidel_Gauss(T x[100], double e, int itmax)
 			for (int j = 1; j <= m_n; j++)
 				if (j != i)
 					S = S + m_a[i][j] * x[j];
+			
+			try {
+				if (mod(m_a[i][i]) == 0)
+					throw 0;
 
-			y[i] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+				y[i] = (m_a[i][m_n + 1] - S) / m_a[i][i];
+			}
+			catch (int err)
+			{
+				std::cout << "Sistemul nu are solutie unica!";
+			}
 
 			if (max < mod(y[i] - x[i]))
 				max = mod(y[i] - x[i]);
@@ -437,15 +502,21 @@ void Sistem<T>::Seidel_Gauss(T x[100], double e, int itmax)
 			x[i] = y[i];
 		}
 
-		it++;
-	} while (max > e && it <= itmax);
+		try {
+			it++;
 
-	/*if (it > itmax)
-	{
-		std::cout << "nu se poate obtine solutia in " << itmax << " iteratii cu precizia " << e;
-		return 0;
-	}
-	*/
+			if (it > itmax)
+			{
+				throw 1;
+			}
+		}
+		catch (int err)
+		{
+			std::cout << "Nu se poate aproxima o solutie cu " << itmax << " iteratii!";
+		}
+	} while (max > e);
+
+	
 
 	std::cout << "Solutia obtinuta in " << it << " iteratii cu precizia " << e << " este : ";
 	for (int i = 1; i <= m_n; i++)
