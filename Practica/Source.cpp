@@ -16,7 +16,7 @@ int main()
 	{
 		do
 		{
-			std::cout << "Error: matrix dimension not supported! " << std::endl << "Try again!";
+			std::cout << "Error: matrix dimension not supported! " << std::endl << "Try again: ";
 			std::cin >> n;
 		} while (n >= 100);
 	}
@@ -24,16 +24,16 @@ int main()
 	
 	try {
 		std::cin >> s;
-		if (s != "Real" || s != "Complex")
+		if (s != "Real" && s != "Complex")
 			throw 0;
 	}
 	catch (int err)
 	{
 		do
 		{
-			std::cout << "Error: Data type not supported!" << std::endl << "Try again!";
-			std::cin >> n;
-		} while (s != "Real" || s != "Complex");
+			std::cout << "Error: Data type not supported!" << std::endl << "Try again: ";
+			std::cin >> s;
+		} while (s != "Real" && s != "Complex");
 	}
 	
 	
@@ -47,16 +47,16 @@ int main()
 		try
 		{
 			std::cin >> s;
-			if (s != "GaussPartial" || s != "GaussTotal" || s != "Factorizare" || s != "Jacobi" || s != "SeidelGauss")
+			if (s != "GaussPartial" && s != "GaussTotal" && s != "Factorizare" && s != "Jacobi" && s != "SeidelGauss")
 				throw 0;
 		}
 		catch (int err)
 		{
 			do 
 			{
-				std::cout << "Error: Method not supported!" << std::endl << "Try again!";
+				std::cout << "Error: Method not supported!" << std::endl << "Try again: ";
 				std::cin >> s;
-			} while (s != "GaussPartial" || s != "GaussTotal" || s != "Factorizare" || s != "Jacobi" || s != "SeidelGauss");
+			} while (s != "GaussPartial" && s != "GaussTotal" && s != "Factorizare" && s != "Jacobi" && s != "SeidelGauss");
 		}
 		if (s == "GaussPartial")
 			S.Gauss_Partial();
@@ -83,7 +83,7 @@ int main()
 			}
 			catch (int err) {
 				do {
-					std::cout << "Number of iterations must be integer!" << std::endl << "Try again!";
+					std::cout << "Number of iterations must be integer!" << std::endl << "Try again: ";
 					std::cin >> itmax;
 				} while (!std::cin);
 			}
@@ -109,7 +109,7 @@ int main()
 			}
 			catch (int err) {
 				do {
-					std::cout << "Number of iterations must be integer!" << std::endl << "Try again!";
+					std::cout << "Number of iterations must be integer!" << std::endl << "Try again: ";
 					std::cin >> itmax;
 				} while (!std::cin);
 			}
@@ -117,8 +117,8 @@ int main()
 			S.Seidel_Gauss(x, e, itmax);
 		}
 	}
-	else
-		if (s == "COMPLEX" || s == "complex" || s == "Complex")
+	
+	if (s == "Complex")
 		{
 			Sistem<NumarComplex> S(n);
 			std::cout << "Dati coeficientii (partea reala urmata de partea imaginara) : " << std::endl;
@@ -151,7 +151,7 @@ int main()
 				}
 				catch (int err) {
 					do {
-						std::cout << "Number of iterations must be integer!" << std::endl << "Try again!";
+						std::cout << "Number of iterations must be integer!" << std::endl << "Try again: ";
 						std::cin >> itmax;
 					} while (!std::cin);
 				}
@@ -180,7 +180,7 @@ int main()
 				}
 				catch (int err) {
 					do {
-						std::cout << "Number of iterations must be integer!" << std::endl << "Try again!";
+						std::cout << "Number of iterations must be integer!" << std::endl << "Try again: ";
 						std::cin >> itmax;
 					} while (!std::cin);
 				}

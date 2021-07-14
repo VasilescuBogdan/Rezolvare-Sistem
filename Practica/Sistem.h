@@ -419,11 +419,12 @@ void Sistem<T>::Jacobi(T x[100], double e, int itmax)
 
 	do
 	{
-		max = 0;
+		
 
 		for (int i = 1; i <= m_n; i++)
 		{
 			T S = 0;
+			max = 0;
 
 			for (int j = 1; j <= m_n; j++)
 				if (j != i)
@@ -456,7 +457,7 @@ void Sistem<T>::Jacobi(T x[100], double e, int itmax)
 			std::cout << "Nu se poate aproxima o solutie cu " << itmax << " iteratii! ";
 			return ;
 		}
-
+		
 	} while (max > e);
 
 	std::cout << "Solutia obtinuta in " << it << " iteratii cu precizia " << e << " este : ";
@@ -513,6 +514,7 @@ void Sistem<T>::Seidel_Gauss(T x[100], double e, int itmax)
 		catch (int err)
 		{
 			std::cout << "Nu se poate aproxima o solutie cu " << itmax << " iteratii!";
+			return;
 		}
 	} while (max > e);
 
